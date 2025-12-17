@@ -1,0 +1,40 @@
+categories:
+  - tech
+  - domain
+  - career
+  - networking
+  - soft-skill
+
+examples:
+  tech:
+    - RAG
+    - LLM
+    - MLOps
+    - infra
+    - frontend
+    - backend
+    - security
+  
+  domain:
+    - healthcare
+    - insurance
+    - finance
+    - e-commerce
+    - education
+
+  career:
+    - leadership
+    - communication
+    - career-growth
+    - hiring
+
+  networking:
+    - community
+    - meetup
+    - conference
+    - coffee-chat
+
+  soft-skill:
+    - presentation
+    - writing
+    - time-management
