@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:luma.com)",
+      "Bash(python scripts/after_sessions_new.py:*)"
+    ]
+  }
+}
