@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="38" fill="#10233b"/>
+  <rect x="18" y="18" width="156" height="156" rx="28" fill="#fffaf1"/>
+  <path d="M42 48h108v14H42z" fill="#ff7a00"/>
+  <path d="M42 76h68v10H42zM42 98h52v10H42zM42 120h80v10H42z" fill="#10233b" opacity=".82"/>
+  <circle cx="138" cy="112" r="24" fill="#0a6cff"/>
+  <path d="M138 92c8 0 14 6 14 14 0 10-14 24-14 24s-14-14-14-24c0-8 6-14 14-14zm0 8a6 6 0 100 12 6 6 0 000-12z" fill="#fff"/>
+  <text x="96" y="160" text-anchor="middle" font-size="16" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-weight="700" fill="#10233b">AI EXPO</text>
+</svg>

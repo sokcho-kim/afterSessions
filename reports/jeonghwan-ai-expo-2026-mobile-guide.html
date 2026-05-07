@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10233b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="AI EXPO 2026">
+  <link rel="manifest" href="./jeonghwan-ai-expo-2026-manifest.webmanifest">
+  <link rel="icon" href="./pwa-icon-192.svg" type="image/svg+xml">
+  <title>AI EXPO 2026 Job Guide</title>
+  <style>
+    :root {
+      --bg: #f3f0e8;
+      --paper: #fffdf8;
+      --ink: #10233b;
+      --muted: #5f6b78;
+      --line: #d7d0c4;
+      --accent: #0a6cff;
+      --accent-2: #ff7a00;
+      --good: #147a44;
+      --chip: #e9f1ff;
+      --shadow: 0 14px 32px rgba(16, 35, 59, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(255, 122, 0, 0.12), transparent 24rem),
+        linear-gradient(180deg, #f8f5ee 0%, #efe8dc 100%);
+      color: var(--ink);
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      width: min(100%, 860px);
+      margin: 0 auto;
+      padding: 18px 14px 40px;
+    }
+
+    .hero,
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(16, 35, 59, 0.08);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 20px 18px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -36px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(10, 108, 255, 0.16), transparent 70%);
+      pointer-events: none;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--chip);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      padding: 16px;
+    }
+
+    .section-title {
+      font-size: 19px;
+      margin-bottom: 6px;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .route-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    button.route {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #dde7f8;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    button.route.active {
+      background: var(--ink);
+      color: white;
+    }
+
+    .map-shell {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .map {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1270 / 824;
+      background: #fff;
+    }
+
+    .map img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pin {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      margin-left: -14px;
+      margin-top: -14px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 18px rgba(10, 108, 255, 0.34);
+      cursor: pointer;
+    }
+
+    .pin.route-b {
+      background: var(--accent-2);
+      box-shadow: 0 10px 18px rgba(255, 122, 0, 0.34);
+    }
+
+    .pin.active {
+      transform: scale(1.15);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 12px 14px;
+      background: #fcfaf5;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .legend span::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 7px;
+      vertical-align: middle;
+    }
+
+    .legend .a::before {
+      background: var(--accent);
+    }
+
+    .legend .b::before {
+      background: var(--accent-2);
+    }
+
+    .focus-card {
+      border: 1px solid #e7e0d4;
+      border-radius: 18px;
+      padding: 14px;
+      background: #fffaf1;
+      margin-top: 12px;
+    }
+
+    .focus-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .focus-top h3 {
+      font-size: 20px;
+      line-height: 1.15;
+    }
+
+    .booth {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .focus-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+
+    .focus-meta span {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 6px 9px;
+      background: #eef4ea;
+      color: var(--good);
+      font-weight: 700;
+    }
+
+    .why {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .ask {
+      background: white;
+      border: 1px dashed #d8c7ad;
+      border-radius: 14px;
+      padding: 11px 12px;
+      font-size: 14px;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-item {
+      border: 1px solid #e6dfd5;
+      border-radius: 16px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .mini-item strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .mini-item p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .script {
+      background: #13263f;
+      color: #eef5ff;
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 14px;
+    }
+
+    .script code {
+      display: block;
+      white-space: pre-wrap;
+      font-family: inherit;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">AI Expo 2026 Quick Guide</div>
+      <h1>정환님 취업형 부스 가이드</h1>
+      <p class="summary">
+        Vision AI, LLM/RAG, 업무 자동화 경험 기준으로 골랐습니다.
+        이번 박람회는 트렌드 구경보다 <strong>어디가 본인 포트폴리오와 맞고, 어떤 질문을 해야 취업 연결이 되는지</strong>를 확인하는 쪽이 더 중요합니다.
+      </p>
+      <div class="chips">
+        <span class="chip">Vision AI</span>
+        <span class="chip">LLM / RAG</span>
+        <span class="chip">업무 자동화</span>
+        <span class="chip">Applied AI</span>
+        <span class="chip">취업형</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2 class="section-title">추천 동선</h2>
+        <p class="section-copy">핀을 누르면 왜 취업 관점에서 봐야 하는지와 질문 포인트가 바로 뜹니다.</p>
+
+        <div class="route-buttons">
+          <button class="route active" data-route="a">동선 A: 포트폴리오 직결</button>
+          <button class="route" data-route="b">동선 B: LLM/RAG 우선</button>
+        </div>
+
+        <div class="map-shell">
+          <div class="map" id="map">
+            <img src="https://www.aiexpo.co.kr/images/v4_1.webp?ver=215152" alt="AI EXPO 2026 Booth Layout">
+          </div>
+          <div class="legend">
+            <span class="a">동선 A 우선 추천</span>
+            <span class="b">동선 B 우선 추천</span>
+          </div>
+        </div>
+
+        <div class="focus-card" id="focus"></div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">먼저 가면 좋은 부스</h2>
+        <div class="mini-list" id="top-list"></div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">오늘 목표</h2>
+        <div class="mini-list">
+          <div class="mini-item"><strong>1. 내 포트폴리오와 맞는 회사 찾기</strong><p>Vision AI, Document AI, Agentic AI, Applied AI 제품 회사 위주로 보기.</p></div>
+          <div class="mini-item"><strong>2. 채용 관점 질문 던지기</strong><p>기술 홍보를 듣는 것보다 엔지니어가 실제로 어떤 일을 하는지 확인.</p></div>
+          <div class="mini-item"><strong>3. 후속 연결 만들기</strong><p>채용 페이지, 담당자, 오픈 포지션, 필요한 역량을 받아오기.</p></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">짧은 자기소개</h2>
+        <div class="script">
+          <code>Python 기반으로 Vision AI와 LLM/RAG 프로젝트를 구현해왔고,
+YOLO/DeepSORT, Face Recognition, MediaPipe,
+LangChain/LangGraph 기반 챗봇과 업무 자동화를 해봤습니다.
+지금은 실제 제품 조직에서 applied AI 엔지니어 역할을 찾고 있습니다.</code>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">공통 질문 5개</h2>
+        <div class="mini-list">
+          <div class="mini-item"><strong>1. 지금 AI 엔지니어가 실제로 맡는 일은 어디까지인가?</strong><p>연구 중심인지, 제품 구현/운영까지 가는지 확인.</p></div>
+          <div class="mini-item"><strong>2. 개인 프로젝트 경험을 채용에서 어떤 기준으로 보는가?</strong><p>포트폴리오가 실무 적합성으로 인정받는 포인트 파악.</p></div>
+          <div class="mini-item"><strong>3. PoC에서 운영 단계로 갈 때 가장 중요한 것은 무엇인가?</strong><p>현업에서 막히는 지점을 듣기.</p></div>
+          <div class="mini-item"><strong>4. Vision AI와 LLM 중 어느 쪽 수요가 더 큰가?</strong><p>지원 방향 좁히기.</p></div>
+          <div class="mini-item"><strong>5. 지금 보완하면 좋은 역량은 백엔드, 데이터, MLOps 중 무엇인가?</strong><p>다음 학습 우선순위 잡기.</p></div>
+        </div>
+      </section>
+    </div>
+
+    <p class="footer-note">현장용 취업형 간단 버전. 기준 자료: 이력서, 포트폴리오, AI EXPO 2026 디렉토리/배치도.</p>
+  </div>
+
+  <script>
+    const booths = [
+      {
+        id: "L01",
+        x: 30.5,
+        y: 79,
+        company: "한국딥러닝",
+        theme: "Document AI",
+        route: "a",
+        reason: "문서 AI, OCR, 비정형 문서 처리 자동화. 지금까지 해온 Vision AI 경험을 가장 설득력 있게 연결하기 좋은 회사입니다.",
+        ask: "문서 AI 엔지니어는 실제로 어떤 문제를 가장 많이 푸는지? 채용 시 개인 프로젝트에서 어떤 점을 높게 보는지?",
+      },
+      {
+        id: "B03",
+        x: 91.8,
+        y: 77.8,
+        company: "씨이랩",
+        theme: "Vision AI",
+        route: "a",
+        reason: "영상분석, 산업 적용, Vision AI. YOLO/DeepSORT 포트폴리오와 직접 연결되고 실무형 비전 AI 경험을 이야기하기 좋습니다.",
+        ask: "현업에서는 모델 정확도보다 어떤 운영 문제가 더 중요한지? 지금 비전 AI 쪽 채용 포인트는 무엇인지?",
+      },
+      {
+        id: "i01",
+        x: 46.8,
+        y: 77.2,
+        company: "미스릴",
+        theme: "Physical AI",
+        route: "a",
+        reason: "산업안전, 제조 최적화, Physical AI. 비전 AI를 현장 문제로 연결하는 감각을 얻기 좋고 포트폴리오와의 연결도 쉽습니다.",
+        ask: "실제 산업 현장에서 바로 쓰이는 비전 AI 사례가 무엇인지? 이쪽 엔지니어에게 필요한 추가 역량은 무엇인지?",
+      },
+      {
+        id: "D24",
+        x: 79.3,
+        y: 38.7,
+        company: "인공지능팩토리",
+        theme: "Agentic AI",
+        route: "a",
+        reason: "에이전틱 AI, 업무 자동화, 노코드 프레임워크. LangChain, LangGraph, RAG 경험을 바로 얘기할 수 있는 부스입니다.",
+        ask: "PoC 말고 운영까지 가는 프로젝트는 어떻게 다른지? 에이전트 제품팀에서 원하는 엔지니어 역량은 무엇인지?",
+      },
+      {
+        id: "D01",
+        x: 76.2,
+        y: 77.7,
+        company: "이스트소프트",
+        theme: "Applied AI",
+        route: "a",
+        reason: "국내 applied AI 회사. 개인 프로젝트를 실제 제품 조직 경험으로 어떻게 연결할지 감을 잡기 좋은 부스입니다.",
+        ask: "개인 프로젝트 경험을 채용에서 어떻게 평가하는지? Vision/LLM 중 어느 쪽 채용 수요가 더 큰지?",
+      },
+      {
+        id: "E31",
+        x: 72.1,
+        y: 26.2,
+        company: "마음AI",
+        theme: "AI Platform",
+        route: "a",
+        reason: "음성, 플랫폼, 응용 AI를 같이 볼 수 있습니다. 단순 모델보다 실제 제품형 AI 회사를 보고 싶을 때 적합합니다.",
+        ask: "지금 가장 수요가 높은 AI 제품군이 무엇인지? 엔지니어가 제품팀에서 맡는 범위가 어디까지인지?",
+      },
+      {
+        id: "D11",
+        x: 78.6,
+        y: 60.5,
+        company: "ElevenLabs",
+        theme: "Voice AI",
+        route: "b",
+        reason: "음성 AI, 멀티모달 감각을 얻기 좋습니다. 현재 스택 확장 방향을 생각할 때 참고 가치가 있습니다.",
+        ask: "한국 기업 고객이 실제로 자동화하는 음성 업무가 무엇인지? 멀티모달 제품팀은 어떤 역량을 선호하는지?",
+      },
+      {
+        id: "E11",
+        x: 72.2,
+        y: 60.1,
+        company: "MinIO",
+        theme: "Data Infra",
+        route: "b",
+        reason: "RAG 서비스 운영에 필요한 데이터 스토리지 관점을 보강할 수 있습니다. 기술 면접 대비용 큰 그림에도 좋습니다.",
+        ask: "RAG/AI 서비스에서 스토리지 설계가 병목이 되는 지점이 무엇인지?",
+      },
+      {
+        id: "D21",
+        x: 82.4,
+        y: 43.2,
+        company: "ITCENCLOIT",
+        theme: "Enterprise AI",
+        route: "b",
+        reason: "기업 AI 도입, 클라우드, 데이터 파이프라인 현실 감각을 얻기 좋습니다. 실무형 엔지니어 역할을 넓게 보는 데 유리합니다.",
+        ask: "기업이 생성형 AI를 실제 도입할 때 가장 막히는 점이 무엇인지? 제품/플랫폼 엔지니어는 어떤 역할을 하는지?",
+      },
+      {
+        id: "M11",
+        x: 24.6,
+        y: 59.7,
+        company: "Saltlux x DeepL",
+        theme: "Language AI",
+        route: "b",
+        reason: "언어 AI, 번역, 엔터프라이즈 현지화 수요를 확인하기 좋습니다. LLM 응용 제품의 실전 수요를 보기 좋습니다.",
+        ask: "한국 기업이 AI 번역을 실제로 가장 많이 붙이는 업무가 무엇인지? 언어 AI 제품팀은 어떤 실무 경험을 높게 보는지?",
+      }
+    ];
+
+    const routeButtons = [...document.querySelectorAll(".route")];
+    const map = document.getElementById("map");
+    const focus = document.getElementById("focus");
+    const topList = document.getElementById("top-list");
+
+    let activeRoute = "a";
+    let activeBooth = booths[0].id;
+
+    function renderPins() {
+      map.querySelectorAll(".pin").forEach((node) => node.remove());
+      booths.forEach((booth, index) => {
+        const pin = document.createElement("button");
+        pin.className = "pin" + (booth.route === "b" ? " route-b" : "");
+        if (booth.id === activeBooth) pin.classList.add("active");
+        pin.style.left = booth.x + "%";
+        pin.style.top = booth.y + "%";
+        pin.textContent = index + 1;
+        pin.title = booth.id + " " + booth.company;
+        pin.addEventListener("click", () => {
+          activeBooth = booth.id;
+          renderPins();
+          renderFocus();
+        });
+        map.appendChild(pin);
+      });
+    }
+
+    function renderFocus() {
+      const booth = booths.find((item) => item.id === activeBooth) || booths[0];
+      focus.innerHTML = `
+        <div class="focus-top">
+          <div>
+            <div class="booth">${booth.id}</div>
+            <h3>${booth.company}</h3>
+          </div>
+          <span class="chip">${booth.theme}</span>
+        </div>
+        <div class="focus-meta">
+          <span>${booth.route === "a" ? "동선 A 추천" : "동선 B 추천"}</span>
+        </div>
+        <p class="why">${booth.reason}</p>
+        <div class="ask"><strong>물어볼 것:</strong> ${booth.ask}</div>
+      `;
+    }
+
+    function renderTopList() {
+      const ordered = booths.filter((booth) => booth.route === activeRoute);
+      topList.innerHTML = ordered.map((booth, index) => `
+        <div class="mini-item">
+          <strong>${index + 1}. ${booth.id} ${booth.company}</strong>
+          <p>${booth.reason}</p>
+        </div>
+      `).join("");
+    }
+
+    routeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeRoute = button.dataset.route;
+        routeButtons.forEach((btn) => btn.classList.toggle("active", btn === button));
+        const first = booths.find((item) => item.route === activeRoute);
+        activeBooth = first ? first.id : booths[0].id;
+        renderPins();
+        renderFocus();
+        renderTopList();
+      });
+    });
+
+    renderPins();
+    renderFocus();
+    renderTopList();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./jeonghwan-ai-expo-2026-sw.js");
+      });
+    }
+  </script>
+</body>
+</html>
