@@ -1,33 +1,39 @@
 # afterSessions
 
-> **테크 컨퍼런스·세미나·강의 이후 인사이트와 액션 아이템을 정리하는 레포지토리입니다.**
-> *Notes & reflections after tech conferences, meetups, and courses.*
+컨퍼런스 · 세미나 · 공식 출장 기록을 **한 곳에서** 관리하고, Notion과 기술블로그로 공유하는 개인 아카이브.
 
-## What is afterSessions
-개발자로서 참석한 다양한 컨퍼런스, 밋업, 세미나, 강의 등의 내용을 기록하고 내 것으로 만들기 위한 공간입니다. 단순히 정보를 나열하는 것을 넘어, **인사이트(Insights)**와 **액션 아이템(Action Items)**을 도출하여 실무와 커리어에 적용하는 것을 목표로 합니다.
+## 단 하나의 규칙
 
-## Folder Structure
+> **한 이벤트 = 파일 하나. 원본은 여기(레포)에만. Notion · 블로그는 자동으로 뿌린다.**
 
-- **`raw/`**: 행사 현장에서 수집한 원본 자료(스크랩, Agenda, 날 것의 메모 등)를 보관합니다.
-- **`events/`**: `raw` 데이터를 바탕으로 정리된 구조화된 노트가 저장됩니다. (Overview, Session Notes, Reflections, Actions)
-- **`reports/`**: 여러 이벤트를 종합하여 작성한 사내 공유 보고서(`company/`)나 블로그 포스팅 초안(`blog/`)이 저장됩니다.
-- **`templates/`**: 노트 및 보고서 작성을 위한 마크다운 템플릿입니다.
-- **`scripts/`**: 반복 작업을 자동화하기 위한 스크립트 모음입니다.
-- **`meta/`**: 이 레포지토리의 규칙(Conventions)과 태그(Tags) 정의를 담고 있습니다.
+손으로 여러 곳에 복사하지 않는다. 그래서 안 깨진다.
 
-## Basic Workflow
+## 구조
 
-1. **Step 1: Preparation**  
-   행사 참석 전후로 `scripts/after_sessions_new.py` 스크립트를 실행하여 기본 폴더와 템플릿을 생성합니다.
-   ```bash
-   python scripts/after_sessions_new.py --date 2025-12-17 --slug my-conference --tags tech
-   ```
+```
+sessions/<year>/<date>-<slug>.md   원본 노트 (이벤트당 파일 1개)
+reports/                           이벤트에서 나온 공유용 산출물 (부스 가이드 등)
+TEMPLATE.md                        세션 파일 템플릿 (복사해서 시작)
+```
 
-2. **Step 2: Collect (Raw)**  
-   `raw/YYYY/Date_Slug/` 폴더에 발표자료, 사진, 빠르게 휘갈겨 쓴 메모 등을 저장합니다.
+폴더는 이게 전부다. `raw/` `events/` `meta/` `scripts/` 같은 단계별 폴더는 없앴다 —
+그게 매번 채우기 귀찮아서 방치되던 원인이었다.
 
-3. **Step 3: Organize (Events)**  
-   `events/YYYY/Date_Slug/` 폴더의 템플릿 파일들을 채워넣으며 내용을 정리합니다. LLM을 활용해 요약하거나, 직접 회고를 작성합니다.
+## 쓰는 법
 
-4. **Step 4: synthesize (Reports)**  
-   필요한 경우 `reports/` 폴더에서 분기별 리포트나 블로그 글을 작성하여 지식을 2차 가공합니다.
+새 세션은 직접 만들 필요 없다. **기안(Claude Code)에게 말하면** 아래를 대신 한다:
+
+1. `TEMPLATE.md` 기반으로 `sessions/<year>/<date>-<slug>.md` 생성
+2. 브레인덤프한 내용을 템플릿에 정리
+3. 커밋
+4. `share:`에 지정된 곳으로 발행 — Notion 페이지 upsert (있으면 갱신, 없으면 생성)
+
+> 예시: *"오늘 XX 컨퍼런스 갔는데 A랑 B 배웠어. afterSessions에 기록해줘."*
+
+## 발행 대상
+
+- **Notion** — 세션 로그 DB (사내 공유)
+- **블로그** — 별도 레포(정적 사이트)로 단방향 발행 *(Phase 2)*
+
+`share:` 프론트매터로 이벤트별 발행 대상을 제어한다. `notion_page:`에 발행된 페이지 ID가
+자동으로 박혀서, 다시 발행해도 중복 없이 갱신된다.
